@@ -2,7 +2,7 @@ package uniandes.dpoo.taller2.modelo;
 
 import java.io.File;
 
-public class Pedido {
+public class Pedido extends Restaurante{
 	static int numeroPedidos;
 	int idPedido;
 	String nombreCliente;
@@ -11,6 +11,9 @@ public class Pedido {
 	public Pedido(String nameCliente, String direcCliente) 
 	{
 		//	TODO hacer todo
+		this.nombreCliente = nameCliente;
+		this.direccionCliente = direcCliente;
+		
 	}
 	
 	public int getPedido() {

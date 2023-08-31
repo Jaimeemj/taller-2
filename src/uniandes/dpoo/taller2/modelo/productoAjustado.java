@@ -1,7 +1,10 @@
 package uniandes.dpoo.taller2.modelo;
 
+import java.util.ArrayList;
+
 public class productoAjustado implements Producto{
 	private ProductoMenu base;
+	private ArrayList<Ingrediente> agregados;
 	public productoAjustado(ProductoMenu pbase){
 		
 	}

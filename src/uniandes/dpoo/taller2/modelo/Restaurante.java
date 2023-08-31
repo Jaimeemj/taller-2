@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Restaurante {
+public class Restaurante  {
 private ArrayList<Ingrediente> ingredientes;
 private ArrayList<Combo> combos;
 private Pedido pedidoEnCurso;
