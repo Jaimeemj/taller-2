@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Restaurante  {
 private ArrayList<Ingrediente> ingredientes;
 private ArrayList<Combo> combos;
+private ArrayList<Pedido> pedidos;
 private Pedido pedidoEnCurso;
-
 public Restaurante() {
 	ingredientes = new ArrayList<Ingrediente>();
 
