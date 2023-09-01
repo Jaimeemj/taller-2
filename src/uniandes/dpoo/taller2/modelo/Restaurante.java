@@ -10,6 +10,8 @@ private ArrayList<Ingrediente> ingredientes;
 private ArrayList<Combo> combos;
 private ArrayList<Pedido> pedidos;
 private Pedido pedidoEnCurso;
+private ArrayList<ProductoMenu> menuBase;
+
 public Restaurante() {
 	ingredientes = new ArrayList<Ingrediente>();
 
@@ -29,8 +31,7 @@ public Restaurante() {
 	}
 	public Pedido getPedidoEnCurso() {
 		//TODO el metodo
-		Pedido pedido=null;
-		return pedido;
+		return pedidoEnCurso;
 	}
 	
 	public ArrayList<Producto> getMenuBase() {
