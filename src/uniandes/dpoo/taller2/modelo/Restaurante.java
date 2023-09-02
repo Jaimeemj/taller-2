@@ -18,19 +18,17 @@ public Restaurante() {
 }
 	public void iniciarPedido(String nombreCliente,String direccionCliente) {
 	//TODO: Completar methodo	
-	}
-	
-	public Pedido cerrarPedidoEnCUrso() {
-		//TODO el methodod
-		Pedido pedido = null;
-		return pedido;	
-	}
-	
-	public void CerrarYGuardarPedido() {
+		
 		
 	}
+	
+	
+	public void CerrarYGuardarPedido() {
+		pedidos.add(pedidoEnCurso);
+		pedidoEnCurso = null;
+	}
 	public Pedido getPedidoEnCurso() {
-		//TODO el metodo
+
 		return pedidoEnCurso;
 	}
 	
@@ -47,18 +45,19 @@ public Restaurante() {
 	
 	public void cargarInformacionRestaurante(File archivoIngredientes, File archivoMenu, File archivoCombos) {
 		cargarIngredientes(archivoIngredientes);
+		cargarMenu(archivoMenu);
+		CargarCombos(archivoCombos);
 		}
 	
 	private void cargarIngredientes(File archivoIngredientes) {
-		try {
-		BufferedReader br = new BufferedReader(new FileReader(archivoIngredientes));
+		try (BufferedReader br = new BufferedReader(new FileReader(archivoIngredientes))) {
 		String linea = br.readLine();
 		while(linea != null) 
 		{
 		String[] partes = linea.split(";");
-		String nombreProd = partes[0];
-		int PrecioProd = Integer.parseInt(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
-		Ingrediente nuevo = new Ingrediente(nombreProd,PrecioProd);
+		String nombreIng = partes[0];
+		int PrecioIng = Integer.parseInt(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
+		Ingrediente nuevo = new Ingrediente(nombreIng,PrecioIng);
 		ingredientes.add(nuevo);
 		}
 		}
@@ -68,10 +67,39 @@ public Restaurante() {
 		}
 	}
 	private void cargarMenu(File archivoMenu) {
+		try (BufferedReader br = new BufferedReader(new FileReader(archivoMenu))) {
+		String linea = br.readLine();
+		while(linea != null) 
+		{
+		String[] partes = linea.split(";");
+		String nombreProd = partes[0];
+		int PrecioProd = Integer.parseInt(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
+		ProductoMenu nuevo = new ProductoMenu(nombreProd,PrecioProd);
+		menuBase.add(nuevo);
+		}
+		}
+		catch(Exception e)
+		{e.printStackTrace();
+			
+		}
 		
 	}
 	private void CargarCombos(File archivoCombos) {
-		
+		try (BufferedReader br = new BufferedReader(new FileReader(archivoCombos))) {
+		String linea = br.readLine();
+		while(linea != null) 
+		{
+		String[] partes = linea.split(";");
+		String nombreProd = partes[0];
+		double PrecioProd = Double.parseDouble(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
+		Combo nuevo = new Combo(nombreProd,PrecioProd);
+		combos.add(nuevo);
+		}
+		}
+		catch(Exception e)
+		{e.printStackTrace();
+			
+		}
 	}
 	
 

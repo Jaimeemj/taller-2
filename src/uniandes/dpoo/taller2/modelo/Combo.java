@@ -14,15 +14,19 @@ public class Combo implements Producto {
 
 	}
 	public int getPrecio() {
-		int hols = 0;
-		descuento= descuento- hols;
-		return hols;
-	}
+		double sumatoria = 0;
+		for(int i = 0;i <= itemsCombo.size();i++) {
+			Producto itemObject = itemsCombo.get(i);
+			int itemValue = itemObject.getPrecio();
+			sumatoria += itemValue;
+			
+		}
+		double porcentajeDinero = (sumatoria*descuento)/100 ;
+		
+		return (int) (sumatoria - porcentajeDinero);
+		}
 
-	public String generarTexto() {
-		String txt = null;
-		return txt;
-	}
+
 
 	public String getNombre() {
 		return nombreCombo;

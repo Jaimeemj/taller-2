@@ -1,12 +1,14 @@
 package uniandes.dpoo.taller2.modelo;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Pedido extends Restaurante{
 	static int numeroPedidos;
 	int idPedido;
 	String nombreCliente;
 	String direccionCliente;
+	ArrayList<Producto> itemsPedido;
 	
 	public Pedido(String nameCliente, String direcCliente) 
 	{
@@ -21,7 +23,7 @@ public class Pedido extends Restaurante{
 		
 	}
 	public void agregarProducto(Producto nuevOItem) {
-		
+		itemsPedido.add(nuevOItem);
 	}
 	private int getPrecioNetoPedido() {
 		//TODO hacer y cambiar value return
