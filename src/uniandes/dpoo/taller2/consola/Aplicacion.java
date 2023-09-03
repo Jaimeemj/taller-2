@@ -13,7 +13,7 @@ public class Aplicacion {
 	public void ejecutarAplicacion()
 	{
 	
-	System.out.println("Estadísticas sobre los Juegos Olímpicos\n");
+	System.out.println("Bienvenido al restaurante\n");
 
 	boolean continuar = true;
 	while (continuar)

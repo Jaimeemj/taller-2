@@ -58,7 +58,7 @@ public class Pedido extends Restaurante{
 	public void guardarFactura(File archivo) {
 		String factura = generarTextoFactura();
 		try (PrintWriter writer = new PrintWriter(archivo)){
-			writer.write(generarTextoFactura());
+			writer.write(factura);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

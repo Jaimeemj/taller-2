@@ -15,7 +15,7 @@ public class Combo implements Producto {
 	}
 	public int getPrecio() {
 		int sumatoria = 0;
-		for(int i = 0;i <= itemsCombo.size();i++) {
+		for(int i = 0;i <= itemsCombo.size();) {
 			Producto itemObject = itemsCombo.get(i);
 			int itemValue = itemObject.getPrecio();
 			sumatoria += itemValue;
