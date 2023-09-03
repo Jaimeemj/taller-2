@@ -17,9 +17,7 @@ public Restaurante() {
 
 }
 	public void iniciarPedido(String nombreCliente,String direccionCliente) {
-	//TODO: Completar methodo	
-		
-		
+	pedidoEnCurso = new Pedido(nombreCliente,direccionCliente);
 	}
 	
 	
@@ -39,8 +37,7 @@ public Restaurante() {
 	
 	public ArrayList<Ingrediente> getIngredientes(){
 		
-		ArrayList<Ingrediente> lista = null;
-		return lista;
+		return ingredientes;
 	}
 	
 	public void cargarInformacionRestaurante(File archivoIngredientes, File archivoMenu, File archivoCombos) {
@@ -94,6 +91,9 @@ public Restaurante() {
 		double PrecioProd = Double.parseDouble(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		Combo nuevo = new Combo(nombreProd,PrecioProd);
 		combos.add(nuevo);
+//		for (int i= 2;i<5;i++) {
+//			nuevo.agregarItemACOmbo(partes[i]); 
+//		}
 		}
 		}
 		catch(Exception e)

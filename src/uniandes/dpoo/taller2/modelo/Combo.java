@@ -14,11 +14,12 @@ public class Combo implements Producto {
 
 	}
 	public int getPrecio() {
-		double sumatoria = 0;
+		int sumatoria = 0;
 		for(int i = 0;i <= itemsCombo.size();i++) {
 			Producto itemObject = itemsCombo.get(i);
 			int itemValue = itemObject.getPrecio();
 			sumatoria += itemValue;
+		return sumatoria;
 			
 		}
 		double porcentajeDinero = (sumatoria*descuento)/100 ;
@@ -34,7 +35,12 @@ public class Combo implements Producto {
 	@Override
 	public String generarTextoFactura() {
 		// TODO Auto-generated method stub
-		return null;
+		String factura = "";
+		for (Producto producto : itemsCombo) {
+			factura += producto.generarTextoFactura();
+		}
+		return factura;
+		
 	}
 
 }

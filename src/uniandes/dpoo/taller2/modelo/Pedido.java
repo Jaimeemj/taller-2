@@ -1,5 +1,7 @@
 package uniandes.dpoo.taller2.modelo;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Pedido extends Restaurante{
@@ -11,7 +13,6 @@ public class Pedido extends Restaurante{
 	
 	public Pedido(String nameCliente, String direcCliente) 
 	{
-		//	TODO hacer todo
 		this.nombreCliente = nameCliente;
 		this.direccionCliente = direcCliente;	
 	}
@@ -27,7 +28,7 @@ public class Pedido extends Restaurante{
 		for (int i = 0;i<itemsPedido.size();i++) {
 			Producto objProducto = itemsPedido.get(i);
 			int precio = objProducto.getPrecio();
-			suma =+ precio;
+			suma += precio;
 		}
 		return suma;
 	}
@@ -36,17 +37,31 @@ public class Pedido extends Restaurante{
 		return getPrecioIvaPedido() + getPrecioNetoPedido();
 	}
 	private int getPrecioIvaPedido() {
-		//TODO hcer todo y cambiar value return
-		
-		return idPedido;
+		int iva = 19;
+		int total = getPrecioNetoPedido();
+		return (iva*total)/100;
 	}
 	private String generarTextoFactura() {
-		//TODO hacer todo y cambiar return
+		String factura = "";
+		factura += "nombre:"+ nombreCliente;
+		factura += "\n Dirección: "+direccionCliente;
+		factura += "\n" + "-".repeat(20);
+		for (Producto producto : itemsPedido) {
+			factura += producto.generarTextoFactura();
+		}
+		factura += "\nTotal Neto: "+ getPrecioNetoPedido();
+		factura += "\nIva "+ getPrecioIvaPedido();
+		factura += "\nTotal: "+getPrecioTotalPedido();
 		
-		return nombreCliente;
+		return factura;
 	}
 	public void guardarFactura(File archivo) {
-		//TODO hacer todo 
+		String factura = generarTextoFactura();
+		try (PrintWriter writer = new PrintWriter(archivo)){
+			writer.write(generarTextoFactura());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
