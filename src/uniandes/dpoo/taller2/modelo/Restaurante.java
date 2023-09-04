@@ -9,6 +9,7 @@ public class Restaurante  {
 private ArrayList<Ingrediente> ingredientes;
 private ArrayList<Combo> combos;
 private ArrayList<Pedido> pedidos;
+private ArrayList<String> nameProductsCombo;
 private Pedido pedidoEnCurso;
 private ArrayList<ProductoMenu> menuBase;
 
@@ -88,12 +89,20 @@ public Restaurante() {
 		{
 		String[] partes = linea.split(";");
 		String nombreProd = partes[0];
-		double PrecioProd = Double.parseDouble(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
+		double PrecioProd = Double.parseDouble(partes[1].substring(0, partes[1].length()-1)); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		Combo nuevo = new Combo(nombreProd,PrecioProd);
 		combos.add(nuevo);
-//		for (int i= 2;i<5;i++) {
-//			nuevo.agregarItemACOmbo(partes[i]); 
-//		}
+
+		for (int i= 2;i<5;i++) {
+			nameProductsCombo.add(partes[i]);
+		}
+		for (int j = 0;j< ingredientes.size();j++) {
+			Ingrediente obj = ingredientes.get(j);
+			if (nameProductsCombo.contains(obj.getNombre())) {
+				continue;
+			}
+			
+		}
 		}
 		}
 		catch(Exception e)
@@ -101,6 +110,7 @@ public Restaurante() {
 			
 		}
 	}
+		
+	}
 	
 
-}
