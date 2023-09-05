@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class Combo implements Producto {
 	private double descuento;
 	private String nombreCombo;
-	private ArrayList<Producto> itemsCombo;
+	private ArrayList<ProductoMenu> itemsCombo;
 	public Combo(String nombre, double pdescuento) {
 		nombreCombo = nombre;
 		descuento = pdescuento;
 	}
 	public void agregarItemACOmbo(Producto itemCombo) {
-		itemsCombo.add(itemCombo);
+		itemsCombo.add((ProductoMenu) itemCombo);
 
 	}
 	public int getPrecio() {

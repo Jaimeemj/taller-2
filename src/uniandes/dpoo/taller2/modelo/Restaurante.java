@@ -12,10 +12,9 @@ private ArrayList<Pedido> pedidos;
 private ArrayList<String> nameProductsCombo;
 private Pedido pedidoEnCurso;
 private ArrayList<ProductoMenu> menuBase;
-
 public Restaurante() {
 	ingredientes = new ArrayList<Ingrediente>();
-
+	
 }
 	public void iniciarPedido(String nombreCliente,String direccionCliente) {
 	pedidoEnCurso = new Pedido(nombreCliente,direccionCliente);
@@ -96,13 +95,14 @@ public Restaurante() {
 		for (int i= 2;i<5;i++) {
 			nameProductsCombo.add(partes[i]);
 		}
-		for (int j = 0;j< ingredientes.size();j++) {
-			Ingrediente obj = ingredientes.get(j);
+		for (int j = 0;j< menuBase.size();j++) {
+			ProductoMenu obj = menuBase.get(j);
 			if (nameProductsCombo.contains(obj.getNombre())) {
-				continue;
+				nuevo.agregarItemACOmbo(obj);
 			}
-			
 		}
+		
+		nameProductsCombo = new ArrayList<String>();
 		}
 		}
 		catch(Exception e)
