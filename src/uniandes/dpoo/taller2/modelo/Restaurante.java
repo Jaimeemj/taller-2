@@ -11,19 +11,34 @@ private ArrayList<Combo> combos;
 private ArrayList<Pedido> pedidos;
 private ArrayList<String> nameProductsCombo;
 private Pedido pedidoEnCurso;
-private ArrayList<ProductoMenu> menuBase;
+private ArrayList<Producto> menuBase ;
 public Restaurante() {
 	ingredientes = new ArrayList<Ingrediente>();
+	menuBase = new ArrayList<Producto>();
+	combos = new ArrayList<Combo>();
+	pedidos = new ArrayList<Pedido>();
 	
 }
 	public void iniciarPedido(String nombreCliente,String direccionCliente) {
 	pedidoEnCurso = new Pedido(nombreCliente,direccionCliente);
 	}
+public Pedido verifyIdPedido(int idPed) {
+	for (Pedido p: pedidos) {
+		if (p.getPedido()== idPed) {
+			return p;
+		}
+	}
+	return null;
+		
+}
+
 	
-	
-	public void CerrarYGuardarPedido() {
+	public int CerrarYGuardarPedido() {
 		pedidos.add(pedidoEnCurso);
+		pedidoEnCurso.guardarFactura();
+		int suid = pedidoEnCurso.getPedido();
 		pedidoEnCurso = null;
+		return suid;
 	}
 	public Pedido getPedidoEnCurso() {
 
@@ -31,8 +46,7 @@ public Restaurante() {
 	}
 	
 	public ArrayList<Producto> getMenuBase() {
-		ArrayList<Producto> lista = null;
-		return lista;
+		return menuBase;
 	}
 	
 	public ArrayList<Ingrediente> getIngredientes(){
@@ -43,7 +57,7 @@ public Restaurante() {
 	public void cargarInformacionRestaurante(File archivoIngredientes, File archivoMenu, File archivoCombos) {
 		cargarIngredientes(archivoIngredientes);
 		cargarMenu(archivoMenu);
-		CargarCombos(archivoCombos);
+		//CargarCombos(archivoCombos);
 		}
 	
 	private void cargarIngredientes(File archivoIngredientes) {
@@ -56,7 +70,9 @@ public Restaurante() {
 		int PrecioIng = Integer.parseInt(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		Ingrediente nuevo = new Ingrediente(nombreIng,PrecioIng);
 		ingredientes.add(nuevo);
+		linea = br.readLine();
 		}
+		
 		}
 		catch(Exception e)
 		{e.printStackTrace();
@@ -73,6 +89,7 @@ public Restaurante() {
 		int PrecioProd = Integer.parseInt(partes[1]); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		ProductoMenu nuevo = new ProductoMenu(nombreProd,PrecioProd);
 		menuBase.add(nuevo);
+		linea = br.readLine();
 		}
 		}
 		catch(Exception e)
@@ -88,21 +105,24 @@ public Restaurante() {
 		{
 		String[] partes = linea.split(";");
 		String nombreProd = partes[0];
-		double PrecioProd = Double.parseDouble(partes[1].substring(0, partes[1].length()-1)); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
+		System.out.println(partes[1]);
+		double PrecioProd = Double.parseDouble(partes[1].replace("%", "")); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		Combo nuevo = new Combo(nombreProd,PrecioProd);
 		combos.add(nuevo);
-
+		nameProductsCombo = new ArrayList<String>();
 		for (int i= 2;i<5;i++) {
 			nameProductsCombo.add(partes[i]);
 		}
+		System.out.println("YA VA PAL SEGUNDO FOR");
 		for (int j = 0;j< menuBase.size();j++) {
-			ProductoMenu obj = menuBase.get(j);
+			Producto obj = menuBase.get(j);
 			if (nameProductsCombo.contains(obj.getNombre())) {
 				nuevo.agregarItemACOmbo(obj);
 			}
+		menuBase.add(nuevo);
 		}
-		
-		nameProductsCombo = new ArrayList<String>();
+		System.out.println("SE ACABA LA VUELTA");
+		linea = br.readLine();
 		}
 		}
 		catch(Exception e)

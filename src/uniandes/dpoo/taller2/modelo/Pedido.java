@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Pedido extends Restaurante{
 	static int numeroPedidos;
-	int idPedido;
+	int idPedido=0;
 	String nombreCliente;
 	String direccionCliente;
 	ArrayList<Producto> itemsPedido;
@@ -15,6 +15,8 @@ public class Pedido extends Restaurante{
 	{
 		this.nombreCliente = nameCliente;
 		this.direccionCliente = direcCliente;	
+		itemsPedido = new ArrayList<Producto>();
+		idPedido+=1;
 	}
 	public int getPedido() {
 		return idPedido;
@@ -55,8 +57,10 @@ public class Pedido extends Restaurante{
 		
 		return factura;
 	}
-	public void guardarFactura(File archivo) {
+	public void guardarFactura() {
 		String factura = generarTextoFactura();
+		File archivo = new File("./data/"+"facturas/"+idPedido+".txt");
+		
 		try (PrintWriter writer = new PrintWriter(archivo)){
 			writer.write(factura);
 		} catch (IOException e) {

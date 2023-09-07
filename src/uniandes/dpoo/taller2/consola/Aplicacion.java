@@ -1,20 +1,27 @@
 package uniandes.dpoo.taller2.consola;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-
+import uniandes.dpoo.taller2.modelo.Pedido;
+import uniandes.dpoo.taller2.modelo.Producto;
 import uniandes.dpoo.taller2.modelo.Restaurante;
 
 public class Aplicacion {
 	
-	private Restaurante restaurante;
+	private Restaurante restaurante = new Restaurante();
+	private String nombre;
+	private String direc;
+	private Integer id;
+	boolean pedAct = false;
 	public void ejecutarAplicacion()
 	{
 	
 	System.out.println("Bienvenido al restaurante\n");
-
+	cargarMenu();
 	boolean continuar = true;
 	while (continuar)
 	{
@@ -25,14 +32,25 @@ public class Aplicacion {
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 			if (opcion_seleccionada == 1)
 				ejedcutarMostrarMenu();
-			else if (opcion_seleccionada == 2 && restaurante != null)
-				ejecutarNuevoPedido();
-			else if (opcion_seleccionada == 3 && restaurante != null)
-				ejecutarAgregarElementoPedido();
-			else if (opcion_seleccionada == 4 && restaurante != null)
+			else if (opcion_seleccionada == 2 && restaurante != null) {
+				nombre = input("Por favor introduzca su nombre");
+				direc = input("Por favor introduzca su direccion");
+				pedAct = ejecutarNuevoPedido(nombre,direc);
+			}
+			else if (opcion_seleccionada == 3 && restaurante != null) {
+				if (pedAct) {
+					int opc = Integer.parseInt(input("ingrese el numero de producto que desea comprar:")); 
+				ejecutarAgregarElementoPedido(opc);}
+				else {
+					System.out.println("no tiene pedido activo, primero cree su pedido");
+				}}
+			else if (opcion_seleccionada == 4 && restaurante != null) {
 				ejecutarCerrarPedidoYGuardarFact();
-			else if (opcion_seleccionada == 5 && restaurante != null)
-				ejecutarInfoPedido();
+			}
+			
+			else if (opcion_seleccionada == 5 && restaurante != null) {
+				id = Integer.parseInt(input("introduzca el id del pedido"));
+				ejecutarInfoPedido(id);}
 			else if (opcion_seleccionada == 6)
 			{
 				System.out.println("Saliendo de la aplicación ...");
@@ -53,21 +71,29 @@ public class Aplicacion {
 		}
 	}
 	}
-private void ejecutarInfoPedido() {
-		// TODO Auto-generated method stub
+private void ejecutarInfoPedido(int id) {
+		Pedido ped = restaurante.verifyIdPedido(id);
+		System.out.println("SI ENTRO A EJCTINFOPEDIDO");
+		
 		
 	}
-private void ejecutarCerrarPedidoYGuardarFact() {
-		// TODO Auto-generated method stub
-		
+private void ejecutarCerrarPedidoYGuardarFact() { 
+	int id = restaurante.CerrarYGuardarPedido();
+	System.out.println("su pedido fue cerrado con exito");
+	System.out.println(id);
+	
+}
+private void ejecutarAgregarElementoPedido(int id ) {
+	Pedido pedActual = restaurante.getPedidoEnCurso();
+	ArrayList<Producto> lstMenu = restaurante.getMenuBase();
+	Producto prFound = lstMenu.get(id-1);
+	pedActual.agregarProducto(prFound);
 	}
-private void ejecutarAgregarElementoPedido() {
-		// TODO Auto-generated method stub
-		
-	}
-private void ejecutarNuevoPedido() {
-		// TODO Auto-generated method stub
-		
+private boolean ejecutarNuevoPedido(String nombre,String direccion) {
+		restaurante.iniciarPedido(nombre, direccion);
+		return true;
+
+
 	}
 public void mostrarOpciones()
 	{
@@ -80,7 +106,14 @@ public void mostrarOpciones()
 		System.out.println("6. Cerrar aplicación");
 	}	
 private void cargarMenu()
-{
+{	
+
+	File archCombo = new File("./data/combos.txt");
+	File archMenu = new File("./data/menu.txt");
+	File archIngr = new File("./data/ingredientes.txt");
+	System.out.println("entrò");
+	restaurante.cargarInformacionRestaurante(archIngr, archMenu,archCombo);
+	System.out.println("HEY MAS SE SE DE DR");
 	}
 /**
  * Muestra al usuario el menú con las opciones para que escoja la siguiente
@@ -88,8 +121,16 @@ private void cargarMenu()
  */
 
 public void ejedcutarMostrarMenu() {
-	System.out.println("aaaaaaaaaaaaaaaa");
-}
+	ArrayList<Producto> lst = restaurante.getMenuBase();
+	int i = 1;
+	for (Producto x : lst) {
+		String namePro = x.getNombre();
+		Integer precioPro = x.getPrecio();
+		System.out.println(i+") "+ namePro+ ": "+precioPro);
+		i+=1;
+		}
+	
+	}
 
 public String input(String mensaje)
 {

@@ -8,6 +8,7 @@ public class Combo implements Producto {
 	public Combo(String nombre, double pdescuento) {
 		nombreCombo = nombre;
 		descuento = pdescuento;
+		itemsCombo = new ArrayList<ProductoMenu>();
 	}
 	public void agregarItemACOmbo(Producto itemCombo) {
 		itemsCombo.add((ProductoMenu) itemCombo);
