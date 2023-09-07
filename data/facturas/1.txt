@@ -1,6 +1,0 @@
-nombre:ja
- Dirección: sa
---------------------null
-Total Neto: 16000
-Iva 3040
-Total: 19040
