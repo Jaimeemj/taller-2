@@ -20,6 +20,8 @@ public int getPrecio() {
 @Override
 public String generarTextoFactura() {
 	// TODO Auto-generated method stub
-	return null;
+	String fact ="";
+	fact = nombre + ": "+Integer.toString(precioBase);
+	return fact;
 }
 }

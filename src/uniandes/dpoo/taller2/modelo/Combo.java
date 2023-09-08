@@ -16,12 +16,10 @@ public class Combo implements Producto {
 	}
 	public int getPrecio() {
 		int sumatoria = 0;
-		for(int i = 0;i <= itemsCombo.size();) {
+		for(int i = 0;i < itemsCombo.size();i++) {
 			Producto itemObject = itemsCombo.get(i);
 			int itemValue = itemObject.getPrecio();
 			sumatoria += itemValue;
-		return sumatoria;
-			
 		}
 		double porcentajeDinero = (sumatoria*descuento)/100 ;
 		
@@ -37,8 +35,9 @@ public class Combo implements Producto {
 	public String generarTextoFactura() {
 		// TODO Auto-generated method stub
 		String factura = "";
+		factura += nombreCombo+="\n";
 		for (Producto producto : itemsCombo) {
-			factura += producto.generarTextoFactura();
+			factura += "\n"+producto.generarTextoFactura();
 		}
 		return factura;
 		

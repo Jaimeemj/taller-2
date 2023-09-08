@@ -5,21 +5,20 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Pedido extends Restaurante{
-	static int numeroPedidos;
-	int idPedido=0;
-	String nombreCliente;
-	String direccionCliente;
-	ArrayList<Producto> itemsPedido;
+	private static int numeroPedidos;
+	private String nombreCliente;
+	private String direccionCliente;
+	private ArrayList<Producto> itemsPedido;
 	
 	public Pedido(String nameCliente, String direcCliente) 
 	{
 		this.nombreCliente = nameCliente;
 		this.direccionCliente = direcCliente;	
 		itemsPedido = new ArrayList<Producto>();
-		idPedido+=1;
+		numeroPedidos+=1;
 	}
 	public int getPedido() {
-		return idPedido;
+		return numeroPedidos;
 	}
 	public void agregarProducto(Producto nuevOItem) {
 		itemsPedido.add(nuevOItem);
@@ -46,10 +45,12 @@ public class Pedido extends Restaurante{
 	private String generarTextoFactura() {
 		String factura = "";
 		factura += "nombre:"+ nombreCliente;
-		factura += "\n Dirección: "+direccionCliente;
+		factura += "\nDirección: "+direccionCliente;
+		factura += "\nid. Pedido: " + numeroPedidos;
 		factura += "\n" + "-".repeat(20);
 		for (Producto producto : itemsPedido) {
-			factura += producto.generarTextoFactura();
+			
+			factura +="\n"+ producto.generarTextoFactura();
 		}
 		factura += "\nTotal Neto: "+ getPrecioNetoPedido();
 		factura += "\nIva "+ getPrecioIvaPedido();
@@ -59,7 +60,7 @@ public class Pedido extends Restaurante{
 	}
 	public void guardarFactura() {
 		String factura = generarTextoFactura();
-		File archivo = new File("./data/"+"facturas/"+idPedido+".txt");
+		File archivo = new File("./data/"+"facturas/"+numeroPedidos+".txt");
 		
 		try (PrintWriter writer = new PrintWriter(archivo)){
 			writer.write(factura);

@@ -37,7 +37,6 @@ public Pedido verifyIdPedido(int idPed) {
 		pedidos.add(pedidoEnCurso);
 		pedidoEnCurso.guardarFactura();
 		int suid = pedidoEnCurso.getPedido();
-		pedidoEnCurso = null;
 		return suid;
 	}
 	public Pedido getPedidoEnCurso() {
@@ -57,7 +56,7 @@ public Pedido verifyIdPedido(int idPed) {
 	public void cargarInformacionRestaurante(File archivoIngredientes, File archivoMenu, File archivoCombos) {
 		cargarIngredientes(archivoIngredientes);
 		cargarMenu(archivoMenu);
-		//CargarCombos(archivoCombos);
+		CargarCombos(archivoCombos);
 		}
 	
 	private void cargarIngredientes(File archivoIngredientes) {
@@ -105,7 +104,6 @@ public Pedido verifyIdPedido(int idPed) {
 		{
 		String[] partes = linea.split(";");
 		String nombreProd = partes[0];
-		System.out.println(partes[1]);
 		double PrecioProd = Double.parseDouble(partes[1].replace("%", "")); // Parse es para convertir de str a otro tipo de val... paseInt convierte a integer
 		Combo nuevo = new Combo(nombreProd,PrecioProd);
 		combos.add(nuevo);
@@ -113,15 +111,15 @@ public Pedido verifyIdPedido(int idPed) {
 		for (int i= 2;i<5;i++) {
 			nameProductsCombo.add(partes[i]);
 		}
-		System.out.println("YA VA PAL SEGUNDO FOR");
+
 		for (int j = 0;j< menuBase.size();j++) {
 			Producto obj = menuBase.get(j);
 			if (nameProductsCombo.contains(obj.getNombre())) {
 				nuevo.agregarItemACOmbo(obj);
 			}
-		menuBase.add(nuevo);
 		}
-		System.out.println("SE ACABA LA VUELTA");
+
+		menuBase.add(nuevo);
 		linea = br.readLine();
 		}
 		}

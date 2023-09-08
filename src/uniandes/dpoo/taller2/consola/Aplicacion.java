@@ -17,7 +17,7 @@ public class Aplicacion {
 	private String nombre;
 	private String direc;
 	private Integer id;
-	boolean pedAct = false;
+	private boolean pedAct = false;
 	public void ejecutarAplicacion()
 	{
 	
@@ -47,6 +47,7 @@ public class Aplicacion {
 				}}
 			else if (opcion_seleccionada == 4 && restaurante != null) {
 				ejecutarCerrarPedidoYGuardarFact();
+				pedAct = false;
 			}
 			
 			else if (opcion_seleccionada == 5 && restaurante != null) {
@@ -74,6 +75,9 @@ public class Aplicacion {
 	}
 private void ejecutarInfoPedido(int id) {
 		Pedido ped = restaurante.verifyIdPedido(id);
+		if (ped == null)
+			System.out.println("Antes debes crear un pedido");
+		else {
 		File archivo = new File("./data/"+"facturas/"+ped.getPedido()+".txt");
 		try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
 			String linea = br.readLine();
@@ -82,20 +86,19 @@ private void ejecutarInfoPedido(int id) {
 				System.out.println(linea);
 				linea = br.readLine();
 ;			}
-		System.out.println("SI ENTRO A EJCTINFOPEDIDO");
 		}
 		catch(Exception e)
 		{e.printStackTrace();
 			
 		}
+		}
 		
 	}
-private void ejecutarCerrarPedidoYGuardarFact() { 
+private void ejecutarCerrarPedidoYGuardarFact() {
 	int id = restaurante.CerrarYGuardarPedido();
 	System.out.println("su pedido fue cerrado con exito");
 	System.out.println(id);
-	
-}
+	}
 private void ejecutarAgregarElementoPedido(int id ) {
 	Pedido pedActual = restaurante.getPedidoEnCurso();
 	ArrayList<Producto> lstMenu = restaurante.getMenuBase();
@@ -124,9 +127,8 @@ private void cargarMenu()
 	File archCombo = new File("./data/combos.txt");
 	File archMenu = new File("./data/menu.txt");
 	File archIngr = new File("./data/ingredientes.txt");
-	System.out.println("entrò");
+
 	restaurante.cargarInformacionRestaurante(archIngr, archMenu,archCombo);
-	System.out.println("HEY MAS SE SE DE DR");
 	}
 /**
  * Muestra al usuario el menú con las opciones para que escoja la siguiente
@@ -134,15 +136,18 @@ private void cargarMenu()
  */
 
 public void ejedcutarMostrarMenu() {
+	System.out.println("");
 	ArrayList<Producto> lst = restaurante.getMenuBase();
 	int i = 1;
 	for (Producto x : lst) {
+
 		String namePro = x.getNombre();
+
 		Integer precioPro = x.getPrecio();
 		System.out.println(i+") "+ namePro+ ": "+precioPro);
 		i+=1;
 		}
-	
+	System.out.println("gracias a messi salio");
 	}
 
 public String input(String mensaje)
